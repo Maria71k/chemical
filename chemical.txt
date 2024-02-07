@@ -1,0 +1,32 @@
+def calculate_molar_mass(compound):
+    atomic_mass = {
+        'H': 1.008,
+        'C': 12.011,
+        'O': 15.999,
+        'N': 14.007,
+        # Add more elements and their atomic masses as needed
+    }
+    
+    molar_mass = 0
+    i = 0
+    while i < len(compound):
+        if i + 1 < len(compound) and compound[i + 1].isdigit():
+            # Check if the next character is a digit (part of a subscript)
+            element = compound[i]
+            i += 1
+            while i < len(compound) and compound[i].isdigit():
+                i += 1
+            subscript = int(compound[i])
+            molar_mass += atomic_mass[element] * subscript
+        else:
+            # If no subscript, default to 1
+            element = compound[i]
+            molar_mass += atomic_mass[element]
+        i += 1
+    
+    return molar_mass
+
+# Example usage:
+compound = "H2O"
+molar_mass = calculate_molar_mass(compound)
+print(f"The molar mass of {compound} is {molar_mass} g/mol.")
